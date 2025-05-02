@@ -1,0 +1,32 @@
+
+name: Checks linting and testing
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  test-lint:
+    name: Test and Lint
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Run tests
+        run: docker-compose run --rm app sh -c "python manage.py test"
+
+      - name: Lint code
+        run: docker-compose run --rm app sh -c "flake8"
+
+
