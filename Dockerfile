@@ -20,6 +20,7 @@ RUN apk add --no-cache --virtual .build-deps \
         openblas-dev \
         lapack-dev && \
     apk add --no-cache openblas && \
+    apk add --no-cache postgresql-client && \ 
     python -m venv /env && \
     . /env/bin/activate && \
     pip install --upgrade pip && \
